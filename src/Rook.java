@@ -1,5 +1,6 @@
-public class Rook extends Piece{
+public class Rook extends Piece {
     private boolean canCastle = true;
+
     Rook(Position position, Color color) {
         super(color);
     }

@@ -1,4 +1,4 @@
-public class Queen extends Piece{
+public class Queen extends Piece {
     Queen(Position position, Color color) {
         super(color);
     }

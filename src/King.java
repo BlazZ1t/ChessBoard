@@ -1,5 +1,6 @@
-public class King extends Piece{
+public class King extends Piece {
     private boolean canCastle = true;
+
     King(Position position, Color color) {
         super(color);
     }

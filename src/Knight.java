@@ -1,4 +1,4 @@
-public class Knight extends Piece{
+public class Knight extends Piece {
     Knight(Position position, Color color) {
         super(color);
     }

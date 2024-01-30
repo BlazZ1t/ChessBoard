@@ -4,9 +4,10 @@ public class Game {
     public static void main(String[] args) {
         startGame();
     }
-    public static void inputs(Board board, Movement movement){
+
+    public static void inputs(Board board, Movement movement) {
         Color turnColor = Color.WHITE;
-        while (movement.isGameInProgress()){
+        while (movement.isGameInProgress()) {
             System.out.println("It's " + turnColor.name() + " move");
             Scanner input = new Scanner(System.in);
             String pieceCoordinate = input.next().toUpperCase();
@@ -22,28 +23,28 @@ public class Game {
                 continue;
             }
             Piece piece = board.findPieceTypeViaPosition(pieceCoordinate);
-            if (!piece.getColor().equals(turnColor)){
+            if (!piece.getColor().equals(turnColor)) {
                 System.out.println("Wrong Color");
                 continue;
             }
-            if (pieceCoordinate.equals("0-0-0") || pieceCoordinate.equals("0-0")){
+            if (pieceCoordinate.equals("0-0-0") || pieceCoordinate.equals("0-0")) {
                 movement.moveCastle();
                 //Checker here
             } else if (movement.checkPosition(pieceCoordinate)) {
                 String targetCoordinate = input.next().toUpperCase();
                 //Checker here
-                if (movement.checkPosition(targetCoordinate)){
-                    if ((targetCoordinate.charAt(1) == '1' && piece.getColor().equals(Color.BLACK))|| (targetCoordinate.charAt(1) == '8' && piece.getColor().equals(Color.WHITE))){
-                        if (piece.getClass().getSimpleName().equals("Pawn")){
+                if (movement.checkPosition(targetCoordinate)) {
+                    if ((targetCoordinate.charAt(1) == '1' && piece.getColor().equals(Color.BLACK)) || (targetCoordinate.charAt(1) == '8' && piece.getColor().equals(Color.WHITE))) {
+                        if (piece.getClass().getSimpleName().equals("Pawn")) {
                             String transformationPiece = input.next().toUpperCase();
                             //Checker here
-                            if (movement.checkTransformation(transformationPiece)){
+                            if (movement.checkTransformation(transformationPiece)) {
                                 System.out.println("Pawn ->" + transformationPiece);
                             } else {
                                 System.out.println("Wrong move");
                             }
                         } else {
-                            if (piece.isMovePossible(targetCoordinate, board)){
+                            if (piece.isMovePossible(targetCoordinate, board)) {
                                 System.out.println("Move Possible");
                             } else {
                                 System.out.println("Wrong Input");
@@ -52,19 +53,19 @@ public class Game {
                             turnColor = switchColor(turnColor);
                         }
                     } else {
-                        if (piece.getClass().getSimpleName().equals("Pawn")){
-                            if ((targetCoordinate.charAt(1) == '1' && piece.getColor().equals(Color.WHITE)) || (targetCoordinate.charAt(1) == '8' && piece.getColor().equals(Color.BLACK))){
+                        if (piece.getClass().getSimpleName().equals("Pawn")) {
+                            if ((targetCoordinate.charAt(1) == '1' && piece.getColor().equals(Color.WHITE)) || (targetCoordinate.charAt(1) == '8' && piece.getColor().equals(Color.BLACK))) {
                                 System.out.println("Wrong Move");
                                 continue;
                             }
                         }
-                        if (piece.isMovePossible(targetCoordinate, board)){
+                        if (piece.isMovePossible(targetCoordinate, board)) {
                             System.out.println("Move Possible");
                         } else {
                             System.out.println("Wrong Input");
                             continue;
                         }
-                        turnColor =  switchColor(turnColor);
+                        turnColor = switchColor(turnColor);
                     }
                 } else {
                     System.out.println("Wrong move");
@@ -74,7 +75,8 @@ public class Game {
             }
         }
     }
-    public static void startGame(){
+
+    public static void startGame() {
         Board board = new Board();
         Movement movement = new Movement();
         board.createTiles();
@@ -84,8 +86,8 @@ public class Game {
     }
 
 
-    private static Color switchColor(Color color){
-        switch (color){
+    private static Color switchColor(Color color) {
+        switch (color) {
             case BLACK -> {
                 return Color.WHITE;
             }

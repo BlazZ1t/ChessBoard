@@ -1,4 +1,4 @@
-public class Bishop extends Piece{
+public class Bishop extends Piece {
     Bishop(Position position, Color color) {
         super(color);
     }
