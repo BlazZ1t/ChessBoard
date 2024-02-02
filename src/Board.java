@@ -10,7 +10,7 @@ public class Board {
     }
 
     public void removePiece(String position) {
-        Piece piece = findPieceTypeViaPosition(position);
+        Piece piece = getPieceTypeViaPosition(position);
         Position key = getKeyViaPiece(piece);
         pieces.remove(key);
 
@@ -130,7 +130,7 @@ public class Board {
         return null;
     }
 
-    public Piece findPieceTypeViaPosition(String piecePosition) {
+    public Piece getPieceTypeViaPosition(String piecePosition) {
         for (Map.Entry<Position, Piece> entry : pieces.entrySet()) {
             Position key = entry.getKey();
             Piece value = entry.getValue();

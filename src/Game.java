@@ -22,7 +22,7 @@ public class Game {
                 board.removePiece(position);
                 continue;
             }
-            Piece piece = board.findPieceTypeViaPosition(pieceCoordinate);
+            Piece piece = board.getPieceTypeViaPosition(pieceCoordinate);
             if (!piece.getColor().equals(turnColor)) {
                 System.out.println("Wrong Color");
                 continue;
