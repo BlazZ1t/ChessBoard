@@ -1,6 +1,5 @@
 public class Pawn extends Piece {
     private boolean hasMoved = false;
-    private boolean justDoubleMoved = false;
     private Position position;
 
     Pawn(Position position, Color color) {
@@ -12,13 +11,14 @@ public class Pawn extends Piece {
     public boolean isMovePossible(String targetCoordinate, Board board) {
         int targetCoordinateNumber = Integer.parseInt(String.valueOf(targetCoordinate.charAt(1)));
         int currentCoordinateNumber = Integer.parseInt(String.valueOf(position.stringValue().charAt(1)));
+        char currentCoordinateLetter = position.stringValue().charAt(0);
         //Capture move
         if (targetCoordinate.charAt(0) - 1 == position.stringValue().charAt(0) ||
                 targetCoordinate.charAt(0) + 1 == position.stringValue().charAt(0)) {
             //Checks for white pawn
             if (color.equals(Color.WHITE)) {
                 if (targetCoordinateNumber - currentCoordinateNumber == 1){
-                    Piece targetPiece = board.getPieceTypeViaPosition(targetCoordinate);
+                    Piece targetPiece = board.getPieceViaPosition(targetCoordinate);
                     if (targetPiece != null){
                         if (targetPiece.getColor().equals(Color.BLACK)){
                             if (!targetPiece.getClass().getSimpleName().equals("King")){
@@ -27,7 +27,7 @@ public class Pawn extends Piece {
                         }
                         //Check for the French move
                     } else {
-                        Pawn enPassantCapture = (Pawn) board.getPieceTypeViaPosition(String.valueOf((position.stringValue().charAt(0) + 1) + currentCoordinateNumber));
+                        Piece enPassantCapture = board.getPieceViaPosition((char) (currentCoordinateLetter + 1) + String.valueOf(currentCoordinateNumber));
                         if (enPassantCapture != null) {
                             if (enPassantCapture.getClass().getSimpleName().equals("Pawn")) {
                                 if (enPassantCapture.getColor().equals(Color.BLACK)) {
@@ -37,11 +37,13 @@ public class Pawn extends Piece {
                                 }
                             }
                         } else {
-                            enPassantCapture = (Pawn) board.getPieceTypeViaPosition(String.valueOf((position.stringValue().charAt(0) - 1) + currentCoordinateNumber));
-                            if (enPassantCapture.getClass().getSimpleName().equals("Pawn")) {
-                                if (enPassantCapture.getColor().equals(Color.WHITE)) {
-                                    if (enPassantCapture.justDoubleMoved) {
-                                        return true;
+                            enPassantCapture = board.getPieceViaPosition((char) (currentCoordinateLetter - 1) + String.valueOf(currentCoordinateNumber));
+                            if (enPassantCapture != null){
+                                if (enPassantCapture.getClass().getSimpleName().equals("Pawn")) {
+                                    if (enPassantCapture.getColor().equals(Color.BLACK)) {
+                                        if (enPassantCapture.justDoubleMoved) {
+                                            return true;
+                                        }
                                     }
                                 }
                             }
@@ -51,11 +53,33 @@ public class Pawn extends Piece {
             //Checks for black pawn
             } else {
                 if (currentCoordinateNumber - targetCoordinateNumber == 1){
-                    Piece targetPiece = board.getPieceTypeViaPosition(targetCoordinate);
+                    Piece targetPiece = board.getPieceViaPosition(targetCoordinate);
                     if (targetPiece != null){
                         if (targetPiece.getColor().equals(Color.WHITE)){
                             if (!targetPiece.getClass().getSimpleName().equals("King")){
                                 return true;
+                            }
+                        }
+                    }  else {
+                        Piece enPassantCapture = board.getPieceViaPosition((char) (currentCoordinateLetter + 1) + String.valueOf(currentCoordinateNumber));
+                        if (enPassantCapture != null) {
+                            if (enPassantCapture.getClass().getSimpleName().equals("Pawn")) {
+                                if (enPassantCapture.getColor().equals(Color.WHITE)) {
+                                    if (enPassantCapture.justDoubleMoved) {
+                                        return true;
+                                    }
+                                }
+                            }
+                        } else {
+                            enPassantCapture = board.getPieceViaPosition((char) (currentCoordinateLetter - 1) + String.valueOf(currentCoordinateNumber));
+                            if (enPassantCapture != null){
+                                if (enPassantCapture.getClass().getSimpleName().equals("Pawn")) {
+                                    if (enPassantCapture.getColor().equals(Color.WHITE)) {
+                                        if (enPassantCapture.justDoubleMoved) {
+                                            return true;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -73,7 +97,7 @@ public class Pawn extends Piece {
                         //Check  if there is a piece blocking the way
                         boolean flag = true;
                         for (int i = currentCoordinateNumber + 1; i <= targetCoordinateNumber; i++) {
-                            if (board.getPieceTypeViaPosition(targetCoordinate.charAt(0) + String.valueOf(i)) != null) {
+                            if (board.getPieceViaPosition(targetCoordinate.charAt(0) + String.valueOf(i)) != null) {
                                 flag = false;
                             }
                         }
@@ -83,7 +107,7 @@ public class Pawn extends Piece {
             } else {
                 if (targetCoordinateNumber - 1 == currentCoordinateNumber) {
                     if (targetCoordinate.charAt(0) == position.stringValue().charAt(0)) {
-                        return board.getPieceTypeViaPosition(targetCoordinate) == null;
+                        return board.getPieceViaPosition(targetCoordinate) == null;
                     }
                 }
             }
@@ -94,7 +118,7 @@ public class Pawn extends Piece {
                     if (targetCoordinate.charAt(0) == position.stringValue().charAt(0)) {
                         boolean flag = true;
                         for (int i = currentCoordinateNumber - 1; i <= targetCoordinateNumber; i++) {
-                            if (board.getPieceTypeViaPosition(targetCoordinate.charAt(0) + String.valueOf(i)) != null) {
+                            if (board.getPieceViaPosition(targetCoordinate.charAt(0) + String.valueOf(i)) != null) {
                                 flag = false;
                             }
                         }
@@ -104,7 +128,7 @@ public class Pawn extends Piece {
             } else {
                 if (targetCoordinateNumber + 1 == currentCoordinateNumber) {
                     if (targetCoordinate.charAt(0) == position.stringValue().charAt(0)) {
-                        return board.getPieceTypeViaPosition(targetCoordinate) == null;
+                        return board.getPieceViaPosition(targetCoordinate) == null;
                     }
                 }
             }

@@ -10,7 +10,7 @@ public class Board {
     }
 
     public void removePiece(String position) {
-        Piece piece = getPieceTypeViaPosition(position);
+        Piece piece = getPieceViaPosition(position);
         Position key = getKeyViaPiece(piece);
         pieces.remove(key);
 
@@ -130,7 +130,18 @@ public class Board {
         return null;
     }
 
-    public Piece getPieceTypeViaPosition(String piecePosition) {
+    public void makePawnDoubleMove(String piecePosition){
+        Piece pawn = getPieceViaPosition(piecePosition);
+        pawn.setJustDoubleMoved(true);
+        if (pawn.justDoubleMoved){
+            System.out.println("set double move successful");
+        } else {
+            System.out.println("sth wrong");
+        }
+
+    }
+
+    public Piece getPieceViaPosition(String piecePosition) {
         for (Map.Entry<Position, Piece> entry : pieces.entrySet()) {
             Position key = entry.getKey();
             Piece value = entry.getValue();

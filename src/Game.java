@@ -11,18 +11,26 @@ public class Game {
             System.out.println("It's " + turnColor.name() + " move");
             Scanner input = new Scanner(System.in);
             String pieceCoordinate = input.next().toUpperCase();
-            if (pieceCoordinate.equals("ADD")) {
-                String position = input.next();
-                String pieceName = input.next();
-                String color = input.next();
-                board.addPiece(new Position(position.charAt(0), Integer.parseInt(String.valueOf(position.charAt(1)))), pieceName, color);
-                continue;
-            } else if (pieceCoordinate.equals("REMOVE")) {
-                String position = input.next();
-                board.removePiece(position);
-                continue;
+            switch (pieceCoordinate) {
+                case "ADD" -> {
+                    String position = input.next();
+                    String pieceName = input.next();
+                    String color = input.next();
+                    board.addPiece(new Position(position.charAt(0), Integer.parseInt(String.valueOf(position.charAt(1)))), pieceName, color);
+                    continue;
+                }
+                case "REMOVE" -> {
+                    String position = input.next();
+                    board.removePiece(position);
+                    continue;
+                }
+                case "DM" -> {
+                    String position = input.next();
+                    board.makePawnDoubleMove(position);
+                    continue;
+                }
             }
-            Piece piece = board.getPieceTypeViaPosition(pieceCoordinate);
+            Piece piece = board.getPieceViaPosition(pieceCoordinate);
             if (!piece.getColor().equals(turnColor)) {
                 System.out.println("Wrong Color");
                 continue;
