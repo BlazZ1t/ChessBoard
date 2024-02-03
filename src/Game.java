@@ -31,15 +31,54 @@ public class Game {
                     continue;
                 }
             }
-            Piece piece = board.getPieceViaPosition(pieceCoordinate);
-            if (!piece.getColor().equals(turnColor)) {
-                System.out.println("Wrong Color");
-                continue;
-            }
             if (pieceCoordinate.equals("0-0-0") || pieceCoordinate.equals("0-0")) {
-                movement.moveCastle();
+                if (turnColor.equals(Color.WHITE)){
+                    Piece king = board.getPieceViaPosition("E1");
+                    if (king != null){
+                        if (king.checkCastlePossibility(board)){
+                            Piece rook;
+                            if (pieceCoordinate.equals("0-0")){
+                                rook = board.getPieceViaPosition("H1");
+                            } else {
+                                rook = board.getPieceViaPosition("A1");
+                            }
+                            if (rook != null) {
+                                if (rook.checkCastlePossibility(board)) {
+                                    System.out.println("Move Possible");
+                                    turnColor = switchColor(turnColor);
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    Piece king = board.getPieceViaPosition("E8");
+                    if (king != null){
+                        if (king.checkCastlePossibility(board)){
+                            Piece rook;
+                            if (pieceCoordinate.equals("0-0")){
+                                rook = board.getPieceViaPosition("H8");
+                            } else {
+                                rook = board.getPieceViaPosition("A8");
+                            }
+                            if (rook != null) {
+                                if (rook.checkCastlePossibility(board)) {
+                                    System.out.println("Move Possible");
+                                    turnColor = switchColor(turnColor);
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+                }
+                System.out.println("Wrong move");
                 //Checker here
             } else if (movement.checkPosition(pieceCoordinate)) {
+                Piece piece = board.getPieceViaPosition(pieceCoordinate);
+                if (!piece.getColor().equals(turnColor)) {
+                    System.out.println("Wrong Color");
+                    continue;
+                }
                 String targetCoordinate = input.next().toUpperCase();
                 //Checker here
                 if (movement.checkPosition(targetCoordinate)) {

@@ -1,5 +1,4 @@
 public class King extends Piece {
-    private boolean canCastle = true;
 
     King(Position position, Color color) {
         super(color);
@@ -7,8 +6,11 @@ public class King extends Piece {
 
     @Override
     public boolean isMovePossible(String targetCoordinate, Board board) {
-
-
         return false;
+    }
+
+    @Override
+    public boolean checkCastlePossibility(Board board) {
+        return canCastle;
     }
 }
