@@ -8,6 +8,7 @@ public class Game {
     public static void inputs(Board board, Movement movement) {
         Color turnColor = Color.WHITE;
         while (movement.isGameInProgress()) {
+            board.displayBoard();
             System.out.println("It's " + turnColor.name() + " move");
             Scanner input = new Scanner(System.in);
             String pieceCoordinate = input.next().toUpperCase();
@@ -89,7 +90,6 @@ public class Game {
         Movement movement = new Movement();
         board.createTiles();
         board.setPieces();
-        board.displayBoard();
         inputs(board, movement);
     }
 
