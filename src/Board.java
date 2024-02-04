@@ -181,4 +181,7 @@ public class Board {
         }
         return null;
     }
+    public void clearBoard(){
+        pieces.clear();
+    }
 }

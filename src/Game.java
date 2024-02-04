@@ -30,6 +30,13 @@ public class Game {
                     board.makePawnDoubleMove(position);
                     continue;
                 }
+                case "CLEAR" -> {
+                    board.clearBoard();
+                    continue;
+                }
+                case "STOP" -> {
+                    System.exit(0);
+                }
             }
             if (pieceCoordinate.equals("0-0-0") || pieceCoordinate.equals("0-0")) {
                 if (turnColor.equals(Color.WHITE)){

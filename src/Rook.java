@@ -1,5 +1,3 @@
-import java.io.PrintStream;
-
 public class Rook extends Piece {
     private Position position;
 
