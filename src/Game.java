@@ -82,8 +82,13 @@ public class Game {
                 //Checker here
             } else if (movement.checkPosition(pieceCoordinate)) {
                 Piece piece = board.getPieceViaPosition(pieceCoordinate);
-                if (!piece.getColor().equals(turnColor)) {
-                    System.out.println("Wrong Color");
+                if (piece != null) {
+                    if (!piece.getColor().equals(turnColor)) {
+                        System.out.println("Wrong Color");
+                        continue;
+                    }
+                } else {
+                    System.out.println("No piece in given position");
                     continue;
                 }
                 String targetCoordinate = input.next().toUpperCase();
