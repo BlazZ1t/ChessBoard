@@ -1,7 +1,9 @@
 public class King extends Piece {
+    private Position position;
 
     King(Position position, Color color) {
         super(color);
+        this.position = position;
     }
 
     @Override
@@ -12,5 +14,15 @@ public class King extends Piece {
     @Override
     public boolean checkCastlePossibility(Board board) {
         return canCastle;
+    }
+
+    @Override
+    public boolean doesAttackKing(Board board) {
+        return false;
+    }
+
+    @Override
+    public Position getPosition() {
+        return position;
     }
 }

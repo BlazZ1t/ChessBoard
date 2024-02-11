@@ -135,4 +135,36 @@ public class Pawn extends Piece {
         }
         return false;
     }
+
+    @Override
+    public boolean doesAttackKing(Board board) {
+        int positionLetter = position.stringValue().charAt(0);
+        int positionNumber = position.stringValue().charAt(1);
+        Piece pieceAtRight;
+        Piece pieceAtLeft;
+        if (color == Color.WHITE) {
+            pieceAtRight = board.getPieceViaPosition((char) (positionLetter + 1) + String.valueOf((char) (positionNumber + 1)));
+            pieceAtLeft = board.getPieceViaPosition((char) (positionLetter - 1) + String.valueOf((char) (positionNumber + 1)));
+        } else {
+            pieceAtRight = board.getPieceViaPosition((char) (positionLetter + 1) + String.valueOf((char) (positionNumber - 1)));
+            pieceAtLeft = board.getPieceViaPosition((char) (positionLetter - 1) + String.valueOf((char) (positionNumber - 1)));
+        }
+        if (pieceAtRight != null){
+            return pieceAtRight.getClass().getSimpleName().equals("King") && pieceAtRight.getColor() != color;
+        } else if (pieceAtLeft != null){
+            return pieceAtLeft.getClass().getSimpleName().equals("King") && pieceAtLeft.getColor() != color;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public Position getPosition() {
+        return position;
+    }
+
+    @Override
+    public void setPosition(Position position) {
+        this.position = position;
+    }
 }

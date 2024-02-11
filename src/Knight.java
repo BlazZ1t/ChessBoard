@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Knight extends Piece {
     private Position position;
     Knight(Position position, Color color) {
@@ -36,5 +38,39 @@ public class Knight extends Piece {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean doesAttackKing(Board board) {
+        int positionLetter = position.stringValue().charAt(0);
+        int positionNumber = position.stringValue().charAt(1);
+        ArrayList<String> attackingTiles = new ArrayList<>();
+        attackingTiles.add((char) (positionLetter + 1) + String.valueOf((char) (positionNumber + 2)));
+        attackingTiles.add((char) (positionLetter + 2) + String.valueOf((char) (positionNumber + 1)));
+        attackingTiles.add((char) (positionLetter - 1) + String.valueOf((char) (positionNumber + 2)));
+        attackingTiles.add((char) (positionLetter - 2) + String.valueOf((char) (positionNumber + 1)));
+        attackingTiles.add((char) (positionLetter + 2) + String.valueOf((char) (positionNumber - 1)));
+        attackingTiles.add((char) (positionLetter + 2) + String.valueOf((char) (positionNumber - 1)));
+        attackingTiles.add((char) (positionLetter - 2) + String.valueOf((char) (positionNumber - 1)));
+        attackingTiles.add((char) (positionLetter - 1) + String.valueOf((char) (positionNumber - 2)));
+        for (int i = 0; i < attackingTiles.size(); i++){
+            Piece possiblePiece = board.getPieceViaPosition(attackingTiles.get(i));
+            if (possiblePiece != null){
+                if (possiblePiece.getClass().getSimpleName().equals("King") && possiblePiece.getColor() != color){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Position getPosition() {
+        return position;
+    }
+
+    @Override
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }

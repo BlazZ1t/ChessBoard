@@ -184,4 +184,9 @@ public class Board {
     public void clearBoard(){
         pieces.clear();
     }
+
+    public void addPieceWithEntity(String position, Piece piece){
+        Position position1 = new Position(position.charAt(0), Integer.parseInt(String.valueOf(position.charAt(1))));
+        pieces.put(position1, piece);
+    }
 }

@@ -112,4 +112,70 @@ public class Rook extends Piece {
 
         return false;
     }
+
+    @Override
+    public boolean doesAttackKing(Board board) {
+        int positionLetter = position.stringValue().charAt(0);
+        int positionNumber = position.stringValue().charAt(1);
+        boolean flag;
+        //Up
+        for (int i = positionNumber; i <= '8'; i++){
+            Piece possibleTarget = board.getPieceViaPosition((char) positionLetter + String.valueOf((char) i));
+            if (possibleTarget != null){
+                flag = possibleTarget.getClass().getSimpleName().equals("King") && !possibleTarget.getColor().equals(color);
+                if (flag){
+                    return true;
+                } else {
+                    break;
+                }
+            }
+        }
+        //Down
+        for (int i = positionNumber; i >= '1'; i--){
+            Piece possibleTarget = board.getPieceViaPosition((char) positionLetter + String.valueOf((char) i));
+            if (possibleTarget != null){
+                flag = possibleTarget.getClass().getSimpleName().equals("King") && !possibleTarget.getColor().equals(color);
+                if (flag) {
+                    return true;
+                } else {
+                    break;
+                }
+            }
+        }
+        //Right
+        for (int i = positionLetter; i <= 'H'; i++){
+            Piece possibleTarget = board.getPieceViaPosition((char) i + String.valueOf((char) positionNumber));
+            if (possibleTarget != null){
+                flag = possibleTarget.getClass().getSimpleName().equals("King") && !possibleTarget.getColor().equals(color);
+                if (flag) {
+                    return true;
+                } else {
+                    break;
+                }
+            }
+        }
+        //Left
+        for (int i = positionLetter; i >= 'A'; i--){
+            Piece possibleTarget = board.getPieceViaPosition((char) i + String.valueOf((char) positionNumber));
+            if (possibleTarget != null){
+                flag =  possibleTarget.getClass().getSimpleName().equals("King") && !possibleTarget.getColor().equals(color);
+                if (flag) {
+                    return true;
+                } else {
+                    break;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Position getPosition() {
+        return position;
+    }
+
+    @Override
+    public void setPosition(Position position) {
+        this.position = position;
+    }
 }
