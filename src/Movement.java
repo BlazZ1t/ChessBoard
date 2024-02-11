@@ -88,7 +88,7 @@ public class Movement {
         return false;
     }
 
-    public boolean isPlayerStalematedOrMated(){
+    public boolean isPlayerMated(){
 
         return false;
     }

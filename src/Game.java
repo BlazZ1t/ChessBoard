@@ -10,6 +10,9 @@ public class Game {
         boolean isPlayerInCheck = false;
         while (movement.isGameInProgress()) {
             if (isPlayerInCheck){
+                if (movement.isPlayerMated()){
+
+                }
                 System.out.println("You're in check");
             }
             board.displayBoard();
