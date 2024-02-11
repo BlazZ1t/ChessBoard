@@ -123,8 +123,8 @@ public class Bishop extends Piece {
         int positionNumber = position.stringValue().charAt(1);
         boolean flag;
         //Up Right
-        int numberChange = positionNumber;
-        for (int i = positionLetter; i <= 'H'; i++){
+        int numberChange = positionNumber + 1;
+        for (int i = positionLetter + 1; i <= 'H'; i++){
             Piece possibleTarget = board.getPieceViaPosition((char) i + String.valueOf((char) numberChange));
             if (possibleTarget != null){
                 flag =  possibleTarget.getClass().getSimpleName().equals("King") && possibleTarget.getColor() != color;
@@ -137,8 +137,8 @@ public class Bishop extends Piece {
             numberChange++;
         }
         //Up Left
-        numberChange = positionNumber;
-        for (int i = positionLetter; i >= 'A'; i--){
+        numberChange = positionNumber + 1;
+        for (int i = positionLetter - 1; i >= 'A'; i--){
             Piece possibleTarget = board.getPieceViaPosition((char) i + String.valueOf((char) numberChange));
             if (possibleTarget != null){
                 flag =  possibleTarget.getClass().getSimpleName().equals("King") && possibleTarget.getColor() != color;
@@ -151,8 +151,8 @@ public class Bishop extends Piece {
             numberChange++;
         }
         //Down Right
-        numberChange = positionNumber;
-        for (int i = positionLetter; i <= 'H'; i++){
+        numberChange = positionNumber - 1;
+        for (int i = positionLetter + 1; i <= 'H'; i++){
             Piece possibleTarget = board.getPieceViaPosition((char) i + String.valueOf((char) numberChange));
             if (possibleTarget != null){
                 flag =  possibleTarget.getClass().getSimpleName().equals("King") && possibleTarget.getColor() != color;
@@ -165,7 +165,8 @@ public class Bishop extends Piece {
             numberChange--;
         }
         //Down Left
-        for (int i = positionLetter; i >= 'A'; i--){
+        numberChange = positionNumber - 1;
+        for (int i = positionLetter - 1; i >= 'A'; i--){
             Piece possibleTarget = board.getPieceViaPosition((char) i + String.valueOf((char) numberChange));
             if (possibleTarget != null){
                 flag = possibleTarget.getClass().getSimpleName().equals("King") && possibleTarget.getColor() != color;

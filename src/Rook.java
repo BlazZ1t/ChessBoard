@@ -119,7 +119,7 @@ public class Rook extends Piece {
         int positionNumber = position.stringValue().charAt(1);
         boolean flag;
         //Up
-        for (int i = positionNumber; i <= '8'; i++){
+        for (int i = positionNumber + 1; i <= '8'; i++){
             Piece possibleTarget = board.getPieceViaPosition((char) positionLetter + String.valueOf((char) i));
             if (possibleTarget != null){
                 flag = possibleTarget.getClass().getSimpleName().equals("King") && !possibleTarget.getColor().equals(color);
@@ -131,7 +131,7 @@ public class Rook extends Piece {
             }
         }
         //Down
-        for (int i = positionNumber; i >= '1'; i--){
+        for (int i = positionNumber - 1; i >= '1'; i--){
             Piece possibleTarget = board.getPieceViaPosition((char) positionLetter + String.valueOf((char) i));
             if (possibleTarget != null){
                 flag = possibleTarget.getClass().getSimpleName().equals("King") && !possibleTarget.getColor().equals(color);
@@ -143,7 +143,7 @@ public class Rook extends Piece {
             }
         }
         //Right
-        for (int i = positionLetter; i <= 'H'; i++){
+        for (int i = positionLetter + 1; i <= 'H'; i++){
             Piece possibleTarget = board.getPieceViaPosition((char) i + String.valueOf((char) positionNumber));
             if (possibleTarget != null){
                 flag = possibleTarget.getClass().getSimpleName().equals("King") && !possibleTarget.getColor().equals(color);
@@ -155,7 +155,7 @@ public class Rook extends Piece {
             }
         }
         //Left
-        for (int i = positionLetter; i >= 'A'; i--){
+        for (int i = positionLetter - 1; i >= 'A'; i--){
             Piece possibleTarget = board.getPieceViaPosition((char) i + String.valueOf((char) positionNumber));
             if (possibleTarget != null){
                 flag =  possibleTarget.getClass().getSimpleName().equals("King") && !possibleTarget.getColor().equals(color);
