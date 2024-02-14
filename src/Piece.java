@@ -1,6 +1,7 @@
 public abstract class Piece {
     protected Color color;
     protected boolean justDoubleMoved = false;
+    protected boolean hasMoved;
     protected boolean canCastle = true;
     protected Position position;
 
@@ -32,4 +33,8 @@ public abstract class Piece {
     protected void setPosition(Position position){
         this.position = position;
     }
+    protected void setHasMoved(boolean hasMoved){
+        this.hasMoved = hasMoved;
+    }
 }
+

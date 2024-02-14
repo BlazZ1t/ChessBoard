@@ -88,6 +88,24 @@ public class Movement {
         return false;
     }
 
+    public void makeMove(String currentCoordinate, String targetCoordinate, Board board){
+        Piece movingPiece = board.getPieceViaPosition(currentCoordinate);
+        Piece possibleTargetPiece = board.getPieceViaPosition(targetCoordinate);
+        if (possibleTargetPiece != null){
+            board.removePiece(targetCoordinate);
+            movingPiece.setPosition(new Position(targetCoordinate.charAt(0), Integer.parseInt(String.valueOf(targetCoordinate.charAt(1)))));
+            board.removePiece(currentCoordinate);
+            board.addPieceWithEntity(targetCoordinate, movingPiece);
+        } else {
+            movingPiece.setPosition(new Position(targetCoordinate.charAt(0), Integer.parseInt(String.valueOf(targetCoordinate.charAt(1)))));
+            board.removePiece(currentCoordinate);
+            board.addPieceWithEntity(targetCoordinate, movingPiece);
+        }
+        if (movingPiece.getClass().getSimpleName().equals("Pawn")){
+            movingPiece.setHasMoved(true);
+        }
+    }
+
     public boolean isPlayerMated(){
 
         return false;

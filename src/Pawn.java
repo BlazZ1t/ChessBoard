@@ -154,7 +154,7 @@ public class Pawn extends Piece {
         } else if (pieceAtLeft != null){
             return pieceAtLeft.getClass().getSimpleName().equals("King") && pieceAtLeft.getColor() != color;
         } else {
-            return true;
+            return false;
         }
     }
 
@@ -166,5 +166,9 @@ public class Pawn extends Piece {
     @Override
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
     }
 }

@@ -10,4 +10,5 @@ public class Position {
     public String stringValue() {
         return letter + String.valueOf(number);
     }
+
 }
