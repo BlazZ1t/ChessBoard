@@ -21,8 +21,62 @@ public class Movement {
         };
     }
 
-    public void moveCastle() {
-
+    public void moveCastle(Color moveColor, String castleType, Board board) {
+        if (moveColor.equals(Color.WHITE)){
+            Piece king = board.getPieceViaPosition("E1");
+            if (castleType.equals("0-0")){
+                Piece rook = board.getPieceViaPosition("H1");
+                if (rook != null && king != null){
+                   if (rook.checkCastlePossibility(board, castleType, this) && king.checkCastlePossibility(board, castleType, this)){
+                       board.removePiece("E1");
+                       board.removePiece("H1");
+                       king.setPosition(new Position('G', 1));
+                       rook.setPosition(new Position('F', 1));
+                       board.addPieceWithEntity("G1", king);
+                       board.addPieceWithEntity("F1", rook);
+                   }
+                }
+            } else {
+                Piece rook = board.getPieceViaPosition("A1");
+                if (rook != null && king != null){
+                    if (rook.checkCastlePossibility(board, castleType, this) && king.checkCastlePossibility(board, castleType, this)){
+                        board.removePiece("E1");
+                        board.removePiece("A1");
+                        king.setPosition(new Position('C', 1));
+                        rook.setPosition(new Position('D', 1));
+                        board.addPieceWithEntity("C1", king);
+                        board.addPieceWithEntity("D1", rook);
+                    }
+                }
+            }
+        } else {
+            Piece king = board.getPieceViaPosition("E8");
+            if (castleType.equals("0-0")){
+                Piece rook = board.getPieceViaPosition("H8");
+                if (rook != null && king != null){
+                    if (rook.checkCastlePossibility(board, castleType, this) && king.checkCastlePossibility(board, castleType, this)){
+                        board.removePiece("E8");
+                        board.removePiece("H8");
+                        king.setPosition(new Position('G', 8));
+                        rook.setPosition(new Position('H', 8));
+                        board.addPieceWithEntity("G8", king);
+                        board.addPieceWithEntity("H8", rook);
+                    }
+                }
+            } else {
+                Piece rook = board.getPieceViaPosition("A8");
+                if (rook != null && king != null){
+                    if (rook.checkCastlePossibility(board, castleType, this) && king.checkCastlePossibility(board, castleType, this)){
+                        board.removePiece("E8");
+                        board.removePiece("A8");
+                        king.setPosition(new Position('C', 8));
+                        rook.setPosition(new Position('D', 8));
+                        board.addPieceWithEntity("C8", king);
+                        board.addPieceWithEntity("D8", rook);
+                    }
+                }
+            }
+        }
     }
 
 
@@ -91,6 +145,13 @@ public class Movement {
     public void makeMove(String currentCoordinate, String targetCoordinate, Board board){
         Piece movingPiece = board.getPieceViaPosition(currentCoordinate);
         Piece possibleTargetPiece = board.getPieceViaPosition(targetCoordinate);
+        board.removeJustDoubleMovedState();
+        if (movingPiece.getClass().getSimpleName().equals("Pawn")){
+            movingPiece.setHasMoved(true);
+            if (Math.abs(targetCoordinate.charAt(1) - movingPiece.position.stringValue().charAt(1)) == 2){
+                board.makePawnDoubleMove(movingPiece.position.stringValue());
+            }
+        }
         if (possibleTargetPiece != null){
             board.removePiece(targetCoordinate);
             movingPiece.setPosition(new Position(targetCoordinate.charAt(0), Integer.parseInt(String.valueOf(targetCoordinate.charAt(1)))));
@@ -101,8 +162,9 @@ public class Movement {
             board.removePiece(currentCoordinate);
             board.addPieceWithEntity(targetCoordinate, movingPiece);
         }
-        if (movingPiece.getClass().getSimpleName().equals("Pawn")){
-            movingPiece.setHasMoved(true);
+
+        if (movingPiece.getClass().getSimpleName().equals("Rook") || movingPiece.getClass().getSimpleName().equals("King")){
+            movingPiece.setCanCastle(false);
         }
     }
 

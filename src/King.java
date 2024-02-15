@@ -25,7 +25,7 @@ public class King extends Piece {
     }
 
     @Override
-    public boolean checkCastlePossibility(Board board) {
+    public boolean checkCastlePossibility(Board board, String castleType, Movement movement) {
         return canCastle;
     }
 
@@ -57,5 +57,10 @@ public class King extends Piece {
     @Override
     public Position getPosition() {
         return position;
+    }
+
+    @Override
+    public void setCanCastle(boolean canCastle) {
+        this.canCastle = canCastle;
     }
 }

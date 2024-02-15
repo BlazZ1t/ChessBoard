@@ -133,12 +133,15 @@ public class Board {
     public void makePawnDoubleMove(String piecePosition){
         Piece pawn = getPieceViaPosition(piecePosition);
         pawn.setJustDoubleMoved(true);
-        if (pawn.justDoubleMoved){
-            System.out.println("set double move successful");
-        } else {
-            System.out.println("sth wrong");
-        }
+    }
 
+    public void removeJustDoubleMovedState(){
+        for (Map.Entry<Position, Piece> entry : pieces.entrySet()){
+            Piece value = entry.getValue();
+            if (value.getClass().getSimpleName().equals("Pawn")){
+                value.setJustDoubleMoved(false);
+            }
+        }
     }
 
     public Piece getPieceViaPosition(String piecePosition) {

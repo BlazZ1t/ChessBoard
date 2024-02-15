@@ -1,5 +1,8 @@
+import java.util.Map;
+
 public class Rook extends Piece {
     private Position position;
+    private boolean canCastle = true;
 
     Rook(Position position, Color color) {
         super(color);
@@ -90,22 +93,90 @@ public class Rook extends Piece {
 
 
     @Override
-    public boolean checkCastlePossibility(Board board){
+    public boolean checkCastlePossibility(Board board, String castleType, Movement movement){
         if (canCastle){
             switch (position.stringValue()){
                 case "H1" -> {
-                    return board.getPieceViaPosition("F1") == null && board.getPieceViaPosition("G1") == null;
+                    if (board.getPieceViaPosition("F1") == null && board.getPieceViaPosition("G1") == null){
+                        board.addPiece(new Position('F', 1), "King", "W");
+                        board.addPiece(new Position('G', 1), "King", "W");
+                        for (Map.Entry<Position, Piece> entry : board.pieces.entrySet()){
+                            Piece value = entry.getValue();
+                            if (value != null){
+                                if (value.getColor() != this.color){
+                                    if (value.doesAttackKing(board)){
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                        board.removePiece("F1");
+                        board.removePiece("G1");
+                        return true;
+                    }
                 }
                 case "A1" -> {
-                    return board.getPieceViaPosition("B1") == null && board.getPieceViaPosition("C1") == null
-                            && board.getPieceViaPosition("D1") == null;
+                    if (board.getPieceViaPosition("B1") == null && board.getPieceViaPosition("C1") == null
+                            && board.getPieceViaPosition("D1") == null){
+                        board.addPiece(new Position('B', 1), "King", "W");
+                        board.addPiece(new Position('C', 1), "King", "W");
+                        board.addPiece(new Position('D', 1), "King", "W");
+                        for (Map.Entry<Position, Piece> entry : board.pieces.entrySet()){
+                            Piece value = entry.getValue();
+                            if (value != null){
+                                if (value.getColor() != this.color){
+                                    if (value.doesAttackKing(board)){
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                        board.removePiece("B1");
+                        board.removePiece("C1");
+                        board.removePiece("D1");
+                        return true;
+                    }
                 }
                 case "H8" -> {
-                    return board.getPieceViaPosition("F8") == null && board.getPieceViaPosition("G8") == null;
+                    if (board.getPieceViaPosition("F8") == null && board.getPieceViaPosition("G8") == null){
+                        board.addPiece(new Position('F', 8), "King", "B");
+                        board.addPiece(new Position('G', 8), "King", "B");
+                        for (Map.Entry<Position, Piece> entry : board.pieces.entrySet()){
+                            Piece value = entry.getValue();
+                            if (value != null){
+                                if (value.getColor() != this.color){
+                                    if (value.doesAttackKing(board)){
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                        board.removePiece("F8");
+                        board.removePiece("G8");
+                        return true;
+                    }
                 }
                 case "A8" -> {
-                    return board.getPieceViaPosition("B8") == null && board.getPieceViaPosition("C8") == null
-                            && board.getPieceViaPosition("D8") == null;
+                    if (board.getPieceViaPosition("B8") == null && board.getPieceViaPosition("C8") == null
+                            && board.getPieceViaPosition("D8") == null){
+                        board.addPiece(new Position('B', 8), "King", "B");
+                        board.addPiece(new Position('C', 8), "King", "B");
+                        board.addPiece(new Position('D', 8), "King", "B");
+                        for (Map.Entry<Position, Piece> entry : board.pieces.entrySet()){
+                            Piece value = entry.getValue();
+                            if (value != null){
+                                if (value.getColor() != this.color){
+                                    if (value.doesAttackKing(board)){
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                        board.removePiece("B8");
+                        board.removePiece("C8");
+                        board.removePiece("D8");
+                        return true;
+                    }
                 }
             }
         }
@@ -177,5 +248,10 @@ public class Rook extends Piece {
     @Override
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    @Override
+    public void setCanCastle(boolean canCastle) {
+        this.canCastle = canCastle;
     }
 }

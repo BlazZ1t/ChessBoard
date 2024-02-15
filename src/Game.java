@@ -48,7 +48,7 @@ public class Game {
                 if (turnColor.equals(Color.WHITE)) {
                     Piece king = board.getPieceViaPosition("E1");
                     if (king != null) {
-                        if (king.checkCastlePossibility(board)) {
+                        if (king.checkCastlePossibility(board, pieceCoordinate, movement)) {
                             Piece rook;
                             if (pieceCoordinate.equals("0-0")) {
                                 rook = board.getPieceViaPosition("H1");
@@ -56,22 +56,27 @@ public class Game {
                                 rook = board.getPieceViaPosition("A1");
                             }
                             if (rook != null) {
-                                if (rook.checkCastlePossibility(board)) {
+                                if (rook.checkCastlePossibility(board, pieceCoordinate, movement)) {
                                     System.out.println("Move Possible");
                                     isPlayerInCheck = false;
-                                    if (rook.position.stringValue().equals("H1")) {
+                                    if (rook.getPosition().stringValue().equals("H1")) {
                                         String targetCoordinate = "F1";
-                                        turnColor = switchColor(turnColor);
+                                        movement.moveCastle(turnColor, pieceCoordinate, board);
                                         if (movement.moveCreatesCheck(board, turnColor, rook, targetCoordinate)) {
                                             isPlayerInCheck = true;
                                         }
+                                        turnColor = switchColor(turnColor);
                                     } else {
                                         String targetCoordinate = "D1";
-                                        turnColor = switchColor(turnColor);
+                                        movement.moveCastle(turnColor, pieceCoordinate, board);
                                         if (movement.moveCreatesCheck(board, turnColor, rook, targetCoordinate)) {
                                             isPlayerInCheck = true;
                                         }
+                                        turnColor = switchColor(turnColor);
                                     }
+                                    continue;
+                                } else {
+                                    System.out.println("Wrong move");
                                     continue;
                                 }
                             }
@@ -80,7 +85,7 @@ public class Game {
                 } else {
                     Piece king = board.getPieceViaPosition("E8");
                     if (king != null) {
-                        if (king.checkCastlePossibility(board)) {
+                        if (king.checkCastlePossibility(board, pieceCoordinate, movement)) {
                             Piece rook;
                             if (pieceCoordinate.equals("0-0")) {
                                 rook = board.getPieceViaPosition("H8");
@@ -88,17 +93,19 @@ public class Game {
                                 rook = board.getPieceViaPosition("A8");
                             }
                             if (rook != null) {
-                                if (rook.checkCastlePossibility(board)) {
+                                if (rook.checkCastlePossibility(board, pieceCoordinate, movement)) {
                                     isPlayerInCheck = false;
                                     System.out.println("Move Possible");
-                                    if (rook.position.stringValue().equals("H8")) {
+                                    if (rook.getPosition().stringValue().equals("H8")) {
                                         String targetCoordinate = "F8";
+                                        movement.moveCastle(turnColor, pieceCoordinate, board);
                                         if (movement.moveCreatesCheck(board, turnColor, rook, targetCoordinate)) {
                                             isPlayerInCheck = true;
                                         }
                                         turnColor = switchColor(turnColor);
                                     } else {
                                         String targetCoordinate = "D8";
+                                        movement.moveCastle(turnColor, pieceCoordinate, board);
                                         if (movement.moveCreatesCheck(board, turnColor, rook, targetCoordinate)) {
                                             isPlayerInCheck = true;
                                         }

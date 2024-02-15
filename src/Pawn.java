@@ -168,7 +168,13 @@ public class Pawn extends Piece {
         this.position = position;
     }
 
+    @Override
     public void setHasMoved(boolean hasMoved) {
         this.hasMoved = hasMoved;
+    }
+
+    @Override
+    public void setJustDoubleMoved(boolean justDoubleMoved) {
+        super.setJustDoubleMoved(justDoubleMoved);
     }
 }

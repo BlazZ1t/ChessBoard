@@ -2,7 +2,7 @@ public abstract class Piece {
     protected Color color;
     protected boolean justDoubleMoved = false;
     protected boolean hasMoved;
-    protected boolean canCastle = true;
+    protected boolean canCastle = false;
     protected Position position;
 
     Piece(Color color) {
@@ -20,7 +20,7 @@ public abstract class Piece {
         this.justDoubleMoved = justDoubleMoved;
     }
 
-    public boolean checkCastlePossibility(Board board){
+    public boolean checkCastlePossibility(Board board, String castleType, Movement movement){
         return false;
     }
 
@@ -36,5 +36,6 @@ public abstract class Piece {
     protected void setHasMoved(boolean hasMoved){
         this.hasMoved = hasMoved;
     }
+    protected void setCanCastle(boolean canCastle){this.canCastle = hasMoved;}
 }
 
