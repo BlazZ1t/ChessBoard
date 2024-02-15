@@ -138,8 +138,17 @@ public class Game {
                         if (piece.getClass().getSimpleName().equals("Pawn")) {
                             String transformationPiece = input.next().toUpperCase();
                             //Checker here
-                            if (movement.checkTransformation(transformationPiece)) {
+                            if (movement.checkTransformation(transformationPiece) && piece.isMovePossible(targetCoordinate, board) && !movement.moveCreatesCheck(board, turnColor, piece, targetCoordinate)) {
                                 System.out.println("Pawn ->" + transformationPiece);
+                                movement.transform(board, transformationPiece, targetCoordinate, piece, turnColor);
+                                isPlayerInCheck = false;
+                                if (board.getPieceViaPosition(targetCoordinate).doesAttackKing(board)){
+                                    isPlayerInCheck = true;
+                                }
+                                if (movement.moveCreatesCheck(board, turnColor, board.getPieceViaPosition(targetCoordinate), targetCoordinate)){
+                                    isPlayerInCheck = true;
+                                }
+                                turnColor = switchColor(turnColor);
                             } else {
                                 System.out.println("Wrong move");
                             }

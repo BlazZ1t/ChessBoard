@@ -63,4 +63,9 @@ public class King extends Piece {
     public void setCanCastle(boolean canCastle) {
         this.canCastle = canCastle;
     }
+
+    @Override
+    public void setPosition(Position position) {
+        this.position = position;
+    }
 }

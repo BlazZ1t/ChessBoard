@@ -148,8 +148,8 @@ public class Movement {
         board.removeJustDoubleMovedState();
         if (movingPiece.getClass().getSimpleName().equals("Pawn")){
             movingPiece.setHasMoved(true);
-            if (Math.abs(targetCoordinate.charAt(1) - movingPiece.position.stringValue().charAt(1)) == 2){
-                board.makePawnDoubleMove(movingPiece.position.stringValue());
+            if (Math.abs(targetCoordinate.charAt(1) - movingPiece.getPosition().stringValue().charAt(1)) == 2){
+                board.makePawnDoubleMove(movingPiece.getPosition().stringValue());
             }
         }
         if (possibleTargetPiece != null){
@@ -168,10 +168,43 @@ public class Movement {
         }
     }
 
-    public boolean isPlayerMated(){
+    public void transform(Board board, String transformationPiece, String targetPosition, Piece piece, Color turnColor){
+        switch (transformationPiece){
+            case "Q" -> {
+                board.removePiece(piece.getPosition().stringValue());
+                board.addPiece(new Position(targetPosition.charAt(0), Integer.parseInt(String.valueOf(targetPosition.charAt(1)))), "Queen", turnColor.getColor());
+            }
+            case "R" -> {
+                board.removePiece(piece.getPosition().stringValue());
+                board.addPiece(new Position(targetPosition.charAt(0), Integer.parseInt(String.valueOf(targetPosition.charAt(1)))), "Rook", turnColor.getColor());
+            }
+            case "N" -> {
+                board.removePiece(piece.getPosition().stringValue());
+                board.addPiece(new Position(targetPosition.charAt(0), Integer.parseInt(String.valueOf(targetPosition.charAt(1)))), "Knight", turnColor.getColor());
+            }
+            case "B" -> {
+                board.removePiece(piece.getPosition().stringValue());
+                board.addPiece(new Position(targetPosition.charAt(0), Integer.parseInt(String.valueOf(targetPosition.charAt(1)))), "Bishop", turnColor.getColor());
+            }
+        }
+    }
+
+    public boolean isPlayerMated(Board board, Color turnColor, boolean isPlayerInCheck){
+        if (isPlayerInCheck){
+            Piece king;
+            for (Map.Entry<Position, Piece> entry : board.pieces.entrySet()){
+                Piece value = entry.getValue();
+                if (value.getClass().getSimpleName().equals("King") && value.color.equals(turnColor)){
+                    king = value;
+                }
+            }
+
+        }
 
         return false;
     }
+
+
 
     public void endGame(){
         gameInProgress = false;

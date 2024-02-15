@@ -105,6 +105,8 @@ public class Rook extends Piece {
                             if (value != null){
                                 if (value.getColor() != this.color){
                                     if (value.doesAttackKing(board)){
+                                        board.removePiece("F1");
+                                        board.removePiece("G1");
                                         return false;
                                     }
                                 }
@@ -126,6 +128,9 @@ public class Rook extends Piece {
                             if (value != null){
                                 if (value.getColor() != this.color){
                                     if (value.doesAttackKing(board)){
+                                        board.removePiece("B1");
+                                        board.removePiece("C1");
+                                        board.removePiece("D1");
                                         return false;
                                     }
                                 }
@@ -146,6 +151,8 @@ public class Rook extends Piece {
                             if (value != null){
                                 if (value.getColor() != this.color){
                                     if (value.doesAttackKing(board)){
+                                        board.removePiece("F8");
+                                        board.removePiece("G8");
                                         return false;
                                     }
                                 }
@@ -167,6 +174,9 @@ public class Rook extends Piece {
                             if (value != null){
                                 if (value.getColor() != this.color){
                                     if (value.doesAttackKing(board)){
+                                        board.removePiece("B8");
+                                        board.removePiece("C8");
+                                        board.removePiece("D8");
                                         return false;
                                     }
                                 }
