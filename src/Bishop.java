@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Bishop extends Piece {
     private Position position;
     Bishop(Position position, Color color) {
@@ -179,6 +181,48 @@ public class Bishop extends Piece {
             numberChange--;
         }
         return false;
+    }
+
+    @Override
+    public ArrayList<String> possibleMovesSet(Movement movement, Board board) {
+        char positionLetter = position.stringValue().charAt(0);
+        char positionNumber = position.stringValue().charAt(1);
+        ArrayList<String> moveSet = new ArrayList<>();
+        //Up Right
+        int numberChange = positionNumber + 1;
+        for (int i = positionLetter + 1; i <= 'H'; i++){
+            moveSet.add(positionLetter + String.valueOf(numberChange));
+            numberChange++;
+        }
+        //Up Left
+        numberChange = positionNumber + 1;
+        for (int i = positionLetter - 1; i >= 'A'; i--){
+            moveSet.add(positionLetter + String.valueOf(numberChange));
+            numberChange++;
+        }
+        //Down Right
+        numberChange = positionNumber - 1;
+        for (int i = positionLetter + 1; i <= 'H'; i++){
+            moveSet.add(positionLetter + String.valueOf(numberChange));
+            numberChange--;
+        }
+        //Down Left
+        numberChange = positionNumber - 1;
+        for (int i = positionLetter - 1; i >= 'A'; i--){
+            moveSet.add(positionLetter + String.valueOf(numberChange));
+            numberChange--;
+        }
+        int counter = 0;
+        for (int i = 0; i < moveSet.size(); i++){
+            if (!movement.checkPosition(moveSet.get(i)) || !isMovePossible(moveSet.get(i), board)){
+                moveSet.set(i, null);
+                counter++;
+            }
+        }
+        for (int i = 0; i < counter; i++){
+            moveSet.remove(null);
+        }
+        return moveSet;
     }
 
     @Override

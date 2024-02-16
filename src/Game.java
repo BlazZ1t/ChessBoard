@@ -9,6 +9,18 @@ public class Game {
         Color turnColor = Color.WHITE;
         boolean isPlayerInCheck = false;
         while (movement.isGameInProgress()) {
+            if (movement.isPlayerMated(board, turnColor, isPlayerInCheck)){
+                System.out.println("Mate!");
+                System.out.println(turnColor.toString() + " WINS");
+                movement.endGame();
+                continue;
+            }
+//            if (movement.isPlayerStalemated(board, turnColor, isPlayerInCheck)){
+//                System.out.println("Stalemate!");
+//                System.out.println("It's a draw!");
+//                movement.endGame();
+//                continue;
+//            }
             if (isPlayerInCheck) {
                 System.out.println("You're in check");
             }

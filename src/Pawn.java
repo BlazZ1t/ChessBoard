@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Pawn extends Piece {
     private boolean hasMoved = false;
     private Position position;
@@ -156,6 +158,39 @@ public class Pawn extends Piece {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public ArrayList<String> possibleMovesSet(Movement movement, Board board) {
+        char currentLetter = position.stringValue().charAt(0);
+        char currentNumber = position.stringValue().charAt(1);
+        ArrayList<String> moveSet = new ArrayList<>();
+        if (color.equals(Color.WHITE)){
+            if (!hasMoved){
+                moveSet.add(currentLetter + String.valueOf((char) (currentNumber + 2)));
+            }
+            moveSet.add(currentLetter + String.valueOf((char) (currentNumber + 1)));
+            moveSet.add(((char) (currentLetter + 1)) + String.valueOf((char) (currentNumber + 1)));
+            moveSet.add(((char) (currentLetter - 1)) + String.valueOf((char) (currentNumber + 1)));
+        } else {
+            if (!hasMoved){
+                moveSet.add(currentLetter + String.valueOf((char) (currentNumber - 2)));
+            }
+            moveSet.add(currentLetter + String.valueOf((char) (currentNumber - 1)));
+            moveSet.add((char) (currentLetter + 1) + String.valueOf((char) (currentNumber - 1)));
+            moveSet.add((char) (currentLetter - 1) + String.valueOf((char) (currentNumber - 1)));
+        }
+        int counter = 0;
+        for (int i = 0; i < moveSet.size(); i++){
+            if (!movement.checkPosition(moveSet.get(i)) || !isMovePossible(moveSet.get(i), board)){
+                moveSet.set(i, null);
+                counter++;
+            }
+        }
+        for (int i = 0; i < counter; i++){
+            moveSet.remove(null);
+        }
+        return moveSet;
     }
 
     @Override

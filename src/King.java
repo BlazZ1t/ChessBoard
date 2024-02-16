@@ -55,6 +55,32 @@ public class King extends Piece {
     }
 
     @Override
+    public ArrayList<String> possibleMovesSet(Movement movement, Board board) {
+        ArrayList<String> movesSet = new ArrayList<>();
+        char currentLetter = position.stringValue().charAt(0);
+        char currentNumber = position.stringValue().charAt(1);
+        int counter = 0;
+        movesSet.add(currentLetter + String.valueOf((char) (currentNumber + 1)));
+        movesSet.add(currentLetter + String.valueOf((char) (currentNumber - 1)));
+        movesSet.add(String.valueOf((char) (currentLetter + 1)) + currentNumber);
+        movesSet.add(String.valueOf((char) (currentLetter - 1)) + currentNumber);
+        movesSet.add(String.valueOf((char) (currentLetter + 1)) + ((char)(currentNumber + 1)));
+        movesSet.add(String.valueOf((char)(currentLetter + 1)) + ((char)(currentNumber - 1)));
+        movesSet.add(String.valueOf((char)(currentLetter - 1)) + ((char)(currentNumber + 1)));
+        movesSet.add(String.valueOf((char)(currentLetter - 1)) + ((char)(currentNumber - 1)));
+        for (int i = 0; i < 8; i++){
+            if (!movement.checkPosition(movesSet.get(i))){
+                movesSet.set(i, null);
+                counter++;
+            }
+        }
+        for (int i = 0; i < counter; i++){
+            movesSet.remove(null);
+        }
+        return movesSet;
+    }
+
+    @Override
     public Position getPosition() {
         return position;
     }

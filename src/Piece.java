@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public abstract class Piece {
     protected Color color;
     protected boolean justDoubleMoved = false;
@@ -25,6 +27,8 @@ public abstract class Piece {
     }
 
     public abstract boolean doesAttackKing(Board board);
+
+    public abstract ArrayList<String> possibleMovesSet(Movement movement, Board board);
 
 
     protected Position getPosition(){

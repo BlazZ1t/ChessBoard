@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Knight extends Piece {
     private Position position;
+
     Knight(Position position, Color color) {
         super(color);
         this.position = position;
@@ -13,13 +14,13 @@ public class Knight extends Piece {
         int targetCoordinateNumber = targetCoordinate.charAt(1);
         int currentCoordinateLetter = position.stringValue().charAt(0);
         int currentCoordinateNumber = position.stringValue().charAt(1);
-        if (Math.abs(currentCoordinateNumber - targetCoordinateNumber) <= 2){
-            if (Math.abs(currentCoordinateNumber - targetCoordinateNumber) == 2){
-                if (Math.abs(targetCoordinateLetter - currentCoordinateLetter) == 1){
+        if (Math.abs(currentCoordinateNumber - targetCoordinateNumber) <= 2) {
+            if (Math.abs(currentCoordinateNumber - targetCoordinateNumber) == 2) {
+                if (Math.abs(targetCoordinateLetter - currentCoordinateLetter) == 1) {
                     return checkCapturePossibility(targetCoordinate, board);
                 }
             } else {
-                if (Math.abs(targetCoordinateLetter - currentCoordinateLetter) == 2){
+                if (Math.abs(targetCoordinateLetter - currentCoordinateLetter) == 2) {
                     return checkCapturePossibility(targetCoordinate, board);
                 }
             }
@@ -30,8 +31,8 @@ public class Knight extends Piece {
 
     private boolean checkCapturePossibility(String targetCoordinate, Board board) {
         Piece targetPiece = board.getPieceViaPosition(targetCoordinate);
-        if (targetPiece != null){
-            if (targetPiece.getColor() != this.color){
+        if (targetPiece != null) {
+            if (targetPiece.getColor() != this.color) {
                 return !targetPiece.getClass().getSimpleName().equals("King");
             }
         } else {
@@ -53,15 +54,43 @@ public class Knight extends Piece {
         attackingTiles.add((char) (positionLetter + 2) + String.valueOf((char) (positionNumber - 1)));
         attackingTiles.add((char) (positionLetter - 2) + String.valueOf((char) (positionNumber - 1)));
         attackingTiles.add((char) (positionLetter - 1) + String.valueOf((char) (positionNumber - 2)));
-        for (int i = 0; i < attackingTiles.size(); i++){
+        for (int i = 0; i < attackingTiles.size(); i++) {
             Piece possiblePiece = board.getPieceViaPosition(attackingTiles.get(i));
-            if (possiblePiece != null){
-                if (possiblePiece.getClass().getSimpleName().equals("King") && possiblePiece.getColor() != color){
+            if (possiblePiece != null) {
+                if (possiblePiece.getClass().getSimpleName().equals("King") && possiblePiece.getColor() != color) {
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    @Override
+    public ArrayList<String> possibleMovesSet(Movement movement, Board board) {
+        int positionLetter = position.stringValue().charAt(0);
+        int positionNumber = position.stringValue().charAt(1);
+        ArrayList<String> moveSet = new ArrayList<>();
+        moveSet.add((char) (positionLetter + 1) + String.valueOf((char) (positionNumber + 2)));
+        moveSet.add((char) (positionLetter + 2) + String.valueOf((char) (positionNumber + 1)));
+        moveSet.add((char) (positionLetter - 1) + String.valueOf((char) (positionNumber + 2)));
+        moveSet.add((char) (positionLetter - 2) + String.valueOf((char) (positionNumber + 1)));
+        moveSet.add((char) (positionLetter + 2) + String.valueOf((char) (positionNumber - 1)));
+        moveSet.add((char) (positionLetter + 2) + String.valueOf((char) (positionNumber - 1)));
+        moveSet.add((char) (positionLetter - 2) + String.valueOf((char) (positionNumber - 1)));
+        moveSet.add((char) (positionLetter - 1) + String.valueOf((char) (positionNumber - 2)));
+        int counter = 0;
+        for (int i = 0; i < moveSet.size(); i++) {
+            if (!movement.checkPosition(moveSet.get(i))) {
+                moveSet.set(i, null);
+                counter++;
+            }
+        }
+        for (int i = 0; i < counter; i++) {
+            moveSet.remove(null);
+        }
+
+        return moveSet;
+
     }
 
     @Override
