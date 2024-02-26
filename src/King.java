@@ -16,9 +16,9 @@ public class King extends Piece {
         int currentCoordinateNumber = position.stringValue().charAt(1);
         int targetCoordinateLetter = targetCoordinate.charAt(0);
         int targetCoordinateNumber = targetCoordinate.charAt(1);
-        if (targetCoordinateLetter == currentCoordinateLetter){
+        if (targetCoordinateLetter == currentCoordinateLetter) {
             return Math.abs(targetCoordinateNumber - currentCoordinateNumber) == 1;
-        } else if (Math.abs(targetCoordinateLetter - currentCoordinateLetter) == 1){
+        } else if (Math.abs(targetCoordinateLetter - currentCoordinateLetter) == 1) {
             return Math.abs(targetCoordinateNumber - currentCoordinateNumber) <= 1;
         }
         return false;
@@ -42,10 +42,10 @@ public class King extends Piece {
         targetTiles.add((char) (positionLetter - 1) + String.valueOf((char) (positionNumber - 1)));
         targetTiles.add((char) (positionLetter) + String.valueOf((char) (positionNumber - 1)));
         targetTiles.add((char) (positionLetter + 1) + String.valueOf((char) (positionNumber - 1)));
-        for (int i = 0; i < targetTiles.size(); i++){
+        for (int i = 0; i < targetTiles.size(); i++) {
             Piece possibleTarget = board.getPieceViaPosition(targetTiles.get(i));
-            if (possibleTarget != null){
-                if (possibleTarget.getClass().getSimpleName().equals("King") && possibleTarget.getColor() != color){
+            if (possibleTarget != null) {
+                if (possibleTarget.getClass().getSimpleName().equals("King") && possibleTarget.getColor() != color) {
                     return true;
                 }
             }
@@ -64,17 +64,17 @@ public class King extends Piece {
         movesSet.add(currentLetter + String.valueOf((char) (currentNumber - 1)));
         movesSet.add(String.valueOf((char) (currentLetter + 1)) + currentNumber);
         movesSet.add(String.valueOf((char) (currentLetter - 1)) + currentNumber);
-        movesSet.add(String.valueOf((char) (currentLetter + 1)) + ((char)(currentNumber + 1)));
-        movesSet.add(String.valueOf((char)(currentLetter + 1)) + ((char)(currentNumber - 1)));
-        movesSet.add(String.valueOf((char)(currentLetter - 1)) + ((char)(currentNumber + 1)));
-        movesSet.add(String.valueOf((char)(currentLetter - 1)) + ((char)(currentNumber - 1)));
-        for (int i = 0; i < 8; i++){
-            if (!movement.checkPosition(movesSet.get(i))){
+        movesSet.add(String.valueOf((char) (currentLetter + 1)) + ((char) (currentNumber + 1)));
+        movesSet.add(String.valueOf((char) (currentLetter + 1)) + ((char) (currentNumber - 1)));
+        movesSet.add(String.valueOf((char) (currentLetter - 1)) + ((char) (currentNumber + 1)));
+        movesSet.add(String.valueOf((char) (currentLetter - 1)) + ((char) (currentNumber - 1)));
+        for (int i = 0; i < 8; i++) {
+            if (!movement.checkPosition(movesSet.get(i))) {
                 movesSet.set(i, null);
                 counter++;
             }
         }
-        for (int i = 0; i < counter; i++){
+        for (int i = 0; i < counter; i++) {
             movesSet.remove(null);
         }
         return movesSet;

@@ -130,15 +130,15 @@ public class Board {
         return null;
     }
 
-    public void makePawnDoubleMove(String piecePosition){
+    public void makePawnDoubleMove(String piecePosition) {
         Piece pawn = getPieceViaPosition(piecePosition);
         pawn.setJustDoubleMoved(true);
     }
 
-    public void removeJustDoubleMovedState(){
-        for (Map.Entry<Position, Piece> entry : pieces.entrySet()){
+    public void removeJustDoubleMovedState() {
+        for (Map.Entry<Position, Piece> entry : pieces.entrySet()) {
             Piece value = entry.getValue();
-            if (value.getClass().getSimpleName().equals("Pawn")){
+            if (value.getClass().getSimpleName().equals("Pawn")) {
                 value.setJustDoubleMoved(false);
             }
         }
@@ -184,11 +184,12 @@ public class Board {
         }
         return null;
     }
-    public void clearBoard(){
+
+    public void clearBoard() {
         pieces.clear();
     }
 
-    public void addPieceWithEntity(String position, Piece piece){
+    public void addPieceWithEntity(String position, Piece piece) {
         Position position1 = new Position(position.charAt(0), Integer.parseInt(String.valueOf(position.charAt(1))));
         pieces.put(position1, piece);
     }

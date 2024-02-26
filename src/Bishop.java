@@ -191,25 +191,25 @@ public class Bishop extends Piece {
         //Up Right
         int numberChange = positionNumber + 1;
         for (int i = positionLetter + 1; i <= 'H'; i++){
-            moveSet.add(positionLetter + String.valueOf(numberChange));
+            moveSet.add((char) i + String.valueOf(numberChange));
             numberChange++;
         }
         //Up Left
         numberChange = positionNumber + 1;
         for (int i = positionLetter - 1; i >= 'A'; i--){
-            moveSet.add(positionLetter + String.valueOf(numberChange));
+            moveSet.add((char) i + String.valueOf(numberChange));
             numberChange++;
         }
         //Down Right
         numberChange = positionNumber - 1;
         for (int i = positionLetter + 1; i <= 'H'; i++){
-            moveSet.add(positionLetter + String.valueOf(numberChange));
+            moveSet.add((char) i + String.valueOf(numberChange));
             numberChange--;
         }
         //Down Left
         numberChange = positionNumber - 1;
         for (int i = positionLetter - 1; i >= 'A'; i--){
-            moveSet.add(positionLetter + String.valueOf(numberChange));
+            moveSet.add((char) i + String.valueOf(numberChange));
             numberChange--;
         }
         int counter = 0;

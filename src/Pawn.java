@@ -19,11 +19,11 @@ public class Pawn extends Piece {
                 targetCoordinate.charAt(0) + 1 == position.stringValue().charAt(0)) {
             //Checks for white pawn
             if (color.equals(Color.WHITE)) {
-                if (targetCoordinateNumber - currentCoordinateNumber == 1){
+                if (targetCoordinateNumber - currentCoordinateNumber == 1) {
                     Piece targetPiece = board.getPieceViaPosition(targetCoordinate);
-                    if (targetPiece != null){
-                        if (targetPiece.getColor().equals(Color.BLACK)){
-                            if (!targetPiece.getClass().getSimpleName().equals("King")){
+                    if (targetPiece != null) {
+                        if (targetPiece.getColor().equals(Color.BLACK)) {
+                            if (!targetPiece.getClass().getSimpleName().equals("King")) {
                                 return true;
                             }
                         }
@@ -40,7 +40,7 @@ public class Pawn extends Piece {
                             }
                         } else {
                             enPassantCapture = board.getPieceViaPosition((char) (currentCoordinateLetter - 1) + String.valueOf(currentCoordinateNumber));
-                            if (enPassantCapture != null){
+                            if (enPassantCapture != null) {
                                 if (enPassantCapture.getClass().getSimpleName().equals("Pawn")) {
                                     if (enPassantCapture.getColor().equals(Color.BLACK)) {
                                         if (enPassantCapture.justDoubleMoved) {
@@ -52,17 +52,17 @@ public class Pawn extends Piece {
                         }
                     }
                 }
-            //Checks for black pawn
+                //Checks for black pawn
             } else {
-                if (currentCoordinateNumber - targetCoordinateNumber == 1){
+                if (currentCoordinateNumber - targetCoordinateNumber == 1) {
                     Piece targetPiece = board.getPieceViaPosition(targetCoordinate);
-                    if (targetPiece != null){
-                        if (targetPiece.getColor().equals(Color.WHITE)){
-                            if (!targetPiece.getClass().getSimpleName().equals("King")){
+                    if (targetPiece != null) {
+                        if (targetPiece.getColor().equals(Color.WHITE)) {
+                            if (!targetPiece.getClass().getSimpleName().equals("King")) {
                                 return true;
                             }
                         }
-                    }  else {
+                    } else {
                         Piece enPassantCapture = board.getPieceViaPosition((char) (currentCoordinateLetter + 1) + String.valueOf(currentCoordinateNumber));
                         if (enPassantCapture != null) {
                             if (enPassantCapture.getClass().getSimpleName().equals("Pawn")) {
@@ -74,7 +74,7 @@ public class Pawn extends Piece {
                             }
                         } else {
                             enPassantCapture = board.getPieceViaPosition((char) (currentCoordinateLetter - 1) + String.valueOf(currentCoordinateNumber));
-                            if (enPassantCapture != null){
+                            if (enPassantCapture != null) {
                                 if (enPassantCapture.getClass().getSimpleName().equals("Pawn")) {
                                     if (enPassantCapture.getColor().equals(Color.WHITE)) {
                                         if (enPassantCapture.justDoubleMoved) {
@@ -151,9 +151,9 @@ public class Pawn extends Piece {
             pieceAtRight = board.getPieceViaPosition((char) (positionLetter + 1) + String.valueOf((char) (positionNumber - 1)));
             pieceAtLeft = board.getPieceViaPosition((char) (positionLetter - 1) + String.valueOf((char) (positionNumber - 1)));
         }
-        if (pieceAtRight != null){
+        if (pieceAtRight != null) {
             return pieceAtRight.getClass().getSimpleName().equals("King") && pieceAtRight.getColor() != color;
-        } else if (pieceAtLeft != null){
+        } else if (pieceAtLeft != null) {
             return pieceAtLeft.getClass().getSimpleName().equals("King") && pieceAtLeft.getColor() != color;
         } else {
             return false;
@@ -165,15 +165,15 @@ public class Pawn extends Piece {
         char currentLetter = position.stringValue().charAt(0);
         char currentNumber = position.stringValue().charAt(1);
         ArrayList<String> moveSet = new ArrayList<>();
-        if (color.equals(Color.WHITE)){
-            if (!hasMoved){
+        if (color.equals(Color.WHITE)) {
+            if (!hasMoved) {
                 moveSet.add(currentLetter + String.valueOf((char) (currentNumber + 2)));
             }
             moveSet.add(currentLetter + String.valueOf((char) (currentNumber + 1)));
             moveSet.add(((char) (currentLetter + 1)) + String.valueOf((char) (currentNumber + 1)));
             moveSet.add(((char) (currentLetter - 1)) + String.valueOf((char) (currentNumber + 1)));
         } else {
-            if (!hasMoved){
+            if (!hasMoved) {
                 moveSet.add(currentLetter + String.valueOf((char) (currentNumber - 2)));
             }
             moveSet.add(currentLetter + String.valueOf((char) (currentNumber - 1)));
@@ -181,13 +181,13 @@ public class Pawn extends Piece {
             moveSet.add((char) (currentLetter - 1) + String.valueOf((char) (currentNumber - 1)));
         }
         int counter = 0;
-        for (int i = 0; i < moveSet.size(); i++){
-            if (!movement.checkPosition(moveSet.get(i)) || !isMovePossible(moveSet.get(i), board)){
+        for (int i = 0; i < moveSet.size(); i++) {
+            if (!movement.checkPosition(moveSet.get(i)) || !isMovePossible(moveSet.get(i), board)) {
                 moveSet.set(i, null);
                 counter++;
             }
         }
-        for (int i = 0; i < counter; i++){
+        for (int i = 0; i < counter; i++) {
             moveSet.remove(null);
         }
         return moveSet;

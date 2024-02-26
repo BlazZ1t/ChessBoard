@@ -1,3 +1,4 @@
+//Hell
 public class Position {
     private char letter;
     private int number;

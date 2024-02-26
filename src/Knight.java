@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+//Finished
 public class Knight extends Piece {
     private Position position;
 

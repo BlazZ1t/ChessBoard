@@ -1,12 +1,14 @@
 public enum Color {
-    BLACK ("B"),
-    WHITE ("W");
+    BLACK("B"),
+    WHITE("W");
+
     Color(String b) {
         this.color = b;
     }
+
     private String color;
 
-    public String getColor(){
+    public String getColor() {
         return color;
     }
 }

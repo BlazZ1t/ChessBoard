@@ -9,18 +9,20 @@ public class Game {
         Color turnColor = Color.WHITE;
         boolean isPlayerInCheck = false;
         while (movement.isGameInProgress()) {
-            if (movement.isPlayerMated(board, turnColor, isPlayerInCheck)){
+            if (movement.isPlayerMated(board, turnColor, isPlayerInCheck)) {
+                board.displayBoard();
                 System.out.println("Mate!");
-                System.out.println(turnColor.toString() + " WINS");
+                System.out.println(switchColor(turnColor).toString() + " WINS");
                 movement.endGame();
                 continue;
             }
-//            if (movement.isPlayerStalemated(board, turnColor, isPlayerInCheck)){
-//                System.out.println("Stalemate!");
-//                System.out.println("It's a draw!");
-//                movement.endGame();
-//                continue;
-//            }
+            if (movement.isPlayerStalemated(board, turnColor, isPlayerInCheck)) {
+                board.displayBoard();
+                System.out.println("Stalemate!");
+                System.out.println("It's a draw!");
+                movement.endGame();
+                continue;
+            }
             if (isPlayerInCheck) {
                 System.out.println("You're in check");
             }
@@ -154,10 +156,10 @@ public class Game {
                                 System.out.println("Pawn ->" + transformationPiece);
                                 movement.transform(board, transformationPiece, targetCoordinate, piece, turnColor);
                                 isPlayerInCheck = false;
-                                if (board.getPieceViaPosition(targetCoordinate).doesAttackKing(board)){
+                                if (board.getPieceViaPosition(targetCoordinate).doesAttackKing(board)) {
                                     isPlayerInCheck = true;
                                 }
-                                if (movement.moveCreatesCheck(board, turnColor, board.getPieceViaPosition(targetCoordinate), targetCoordinate)){
+                                if (movement.moveCreatesCheck(board, turnColor, board.getPieceViaPosition(targetCoordinate), targetCoordinate)) {
                                     isPlayerInCheck = true;
                                 }
                                 turnColor = switchColor(turnColor);

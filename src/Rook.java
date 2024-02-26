@@ -258,19 +258,19 @@ public class Rook extends Piece {
         char positionNumber = position.stringValue().charAt(1);
         //Up
         for (int i = positionNumber + 1; i <= '8'; i++){
-            moveSet.add(positionLetter + String.valueOf(i));
+            moveSet.add(String.valueOf(positionLetter) + (char) i);
         }
         //Down
         for (int i = positionNumber - 1; i >= '1'; i--){
-            moveSet.add(positionLetter + String.valueOf(i));
+            moveSet.add(String.valueOf(positionLetter) + (char) i);
         }
         //Right
         for (int i = positionLetter + 1; i <= 'H'; i++){
-            moveSet.add(i + String.valueOf(positionNumber));
+            moveSet.add((char) i + String.valueOf(positionNumber));
         }
         //Left
         for (int i = positionLetter - 1; i >= 'A'; i--){
-            moveSet.add(i + String.valueOf(positionNumber));
+            moveSet.add((char) i + String.valueOf(positionNumber));
         }
         int counter = 0;
         for (int i = 0; i < moveSet.size(); i++){

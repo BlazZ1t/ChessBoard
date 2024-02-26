@@ -22,7 +22,7 @@ public abstract class Piece {
         this.justDoubleMoved = justDoubleMoved;
     }
 
-    public boolean checkCastlePossibility(Board board, String castleType, Movement movement){
+    public boolean checkCastlePossibility(Board board, String castleType, Movement movement) {
         return false;
     }
 
@@ -31,15 +31,20 @@ public abstract class Piece {
     public abstract ArrayList<String> possibleMovesSet(Movement movement, Board board);
 
 
-    protected Position getPosition(){
-       return this.position;
+    protected Position getPosition() {
+        return this.position;
     }
-    protected void setPosition(Position position){
+
+    protected void setPosition(Position position) {
         this.position = position;
     }
-    protected void setHasMoved(boolean hasMoved){
+
+    protected void setHasMoved(boolean hasMoved) {
         this.hasMoved = hasMoved;
     }
-    protected void setCanCastle(boolean canCastle){this.canCastle = hasMoved;}
+
+    protected void setCanCastle(boolean canCastle) {
+        this.canCastle = hasMoved;
+    }
 }
 

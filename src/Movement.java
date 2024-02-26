@@ -23,24 +23,24 @@ public class Movement {
     }
 
     public void moveCastle(Color moveColor, String castleType, Board board) {
-        if (moveColor.equals(Color.WHITE)){
+        if (moveColor.equals(Color.WHITE)) {
             Piece king = board.getPieceViaPosition("E1");
-            if (castleType.equals("0-0")){
+            if (castleType.equals("0-0")) {
                 Piece rook = board.getPieceViaPosition("H1");
-                if (rook != null && king != null){
-                   if (rook.checkCastlePossibility(board, castleType, this) && king.checkCastlePossibility(board, castleType, this)){
-                       board.removePiece("E1");
-                       board.removePiece("H1");
-                       king.setPosition(new Position('G', 1));
-                       rook.setPosition(new Position('F', 1));
-                       board.addPieceWithEntity("G1", king);
-                       board.addPieceWithEntity("F1", rook);
-                   }
+                if (rook != null && king != null) {
+                    if (rook.checkCastlePossibility(board, castleType, this) && king.checkCastlePossibility(board, castleType, this)) {
+                        board.removePiece("E1");
+                        board.removePiece("H1");
+                        king.setPosition(new Position('G', 1));
+                        rook.setPosition(new Position('F', 1));
+                        board.addPieceWithEntity("G1", king);
+                        board.addPieceWithEntity("F1", rook);
+                    }
                 }
             } else {
                 Piece rook = board.getPieceViaPosition("A1");
-                if (rook != null && king != null){
-                    if (rook.checkCastlePossibility(board, castleType, this) && king.checkCastlePossibility(board, castleType, this)){
+                if (rook != null && king != null) {
+                    if (rook.checkCastlePossibility(board, castleType, this) && king.checkCastlePossibility(board, castleType, this)) {
                         board.removePiece("E1");
                         board.removePiece("A1");
                         king.setPosition(new Position('C', 1));
@@ -52,10 +52,10 @@ public class Movement {
             }
         } else {
             Piece king = board.getPieceViaPosition("E8");
-            if (castleType.equals("0-0")){
+            if (castleType.equals("0-0")) {
                 Piece rook = board.getPieceViaPosition("H8");
-                if (rook != null && king != null){
-                    if (rook.checkCastlePossibility(board, castleType, this) && king.checkCastlePossibility(board, castleType, this)){
+                if (rook != null && king != null) {
+                    if (rook.checkCastlePossibility(board, castleType, this) && king.checkCastlePossibility(board, castleType, this)) {
                         board.removePiece("E8");
                         board.removePiece("H8");
                         king.setPosition(new Position('G', 8));
@@ -66,8 +66,8 @@ public class Movement {
                 }
             } else {
                 Piece rook = board.getPieceViaPosition("A8");
-                if (rook != null && king != null){
-                    if (rook.checkCastlePossibility(board, castleType, this) && king.checkCastlePossibility(board, castleType, this)){
+                if (rook != null && king != null) {
+                    if (rook.checkCastlePossibility(board, castleType, this) && king.checkCastlePossibility(board, castleType, this)) {
                         board.removePiece("E8");
                         board.removePiece("A8");
                         king.setPosition(new Position('C', 8));
@@ -108,11 +108,11 @@ public class Movement {
         return false;
     }
 
-    public boolean moveCreatesSelfCheck(Board board, Color currentColor, Piece piece, String targetPosition){
+    public boolean moveCreatesSelfCheck(Board board, Color currentColor, Piece piece, String targetPosition) {
         board.removePiece(piece.getPosition().stringValue());
         Position savedPosition = piece.getPosition();
         Piece possibleTargetPiece = board.getPieceViaPosition(targetPosition);
-        if (possibleTargetPiece != null){
+        if (possibleTargetPiece != null) {
             board.removePiece(targetPosition);
             board.addPieceWithEntity(targetPosition, piece);
         } else {
@@ -126,7 +126,7 @@ public class Movement {
                     board.removePiece(targetPosition);
                     piece.setPosition(savedPosition);
                     board.addPieceWithEntity(savedPosition.stringValue(), piece);
-                    if (possibleTargetPiece != null){
+                    if (possibleTargetPiece != null) {
                         board.addPieceWithEntity(targetPosition, possibleTargetPiece);
                     }
                     return true;
@@ -136,24 +136,24 @@ public class Movement {
         board.removePiece(targetPosition);
         piece.setPosition(savedPosition);
         board.addPieceWithEntity(savedPosition.stringValue(), piece);
-        if (possibleTargetPiece != null){
+        if (possibleTargetPiece != null) {
             board.addPieceWithEntity(targetPosition, possibleTargetPiece);
         }
 
         return false;
     }
 
-    public void makeMove(String currentCoordinate, String targetCoordinate, Board board){
+    public void makeMove(String currentCoordinate, String targetCoordinate, Board board) {
         Piece movingPiece = board.getPieceViaPosition(currentCoordinate);
         Piece possibleTargetPiece = board.getPieceViaPosition(targetCoordinate);
         board.removeJustDoubleMovedState();
-        if (movingPiece.getClass().getSimpleName().equals("Pawn")){
+        if (movingPiece.getClass().getSimpleName().equals("Pawn")) {
             movingPiece.setHasMoved(true);
-            if (Math.abs(targetCoordinate.charAt(1) - movingPiece.getPosition().stringValue().charAt(1)) == 2){
+            if (Math.abs(targetCoordinate.charAt(1) - movingPiece.getPosition().stringValue().charAt(1)) == 2) {
                 board.makePawnDoubleMove(movingPiece.getPosition().stringValue());
             }
         }
-        if (possibleTargetPiece != null){
+        if (possibleTargetPiece != null) {
             board.removePiece(targetCoordinate);
             movingPiece.setPosition(new Position(targetCoordinate.charAt(0), Integer.parseInt(String.valueOf(targetCoordinate.charAt(1)))));
             board.removePiece(currentCoordinate);
@@ -164,14 +164,14 @@ public class Movement {
             board.addPieceWithEntity(targetCoordinate, movingPiece);
         }
 
-        if (movingPiece.getClass().getSimpleName().equals("Rook") || movingPiece.getClass().getSimpleName().equals("King")){
+        if (movingPiece.getClass().getSimpleName().equals("Rook") || movingPiece.getClass().getSimpleName().equals("King")) {
             movingPiece.setCanCastle(false);
         }
     }
 
-    public void transform(Board board, String transformationPiece, String targetPosition, Piece piece, Color turnColor){
+    public void transform(Board board, String transformationPiece, String targetPosition, Piece piece, Color turnColor) {
         final int number = Integer.parseInt(String.valueOf(targetPosition.charAt(1)));
-        switch (transformationPiece){
+        switch (transformationPiece) {
             case "Q" -> {
                 board.removePiece(piece.getPosition().stringValue());
                 board.addPiece(new Position(targetPosition.charAt(0), number), "Queen", turnColor.getColor());
@@ -191,12 +191,12 @@ public class Movement {
         }
     }
 
-    public boolean isPlayerMated(Board board, Color turnColor, boolean isPlayerInCheck){
-        if (isPlayerInCheck){
+    public boolean isPlayerMated(Board board, Color turnColor, boolean isPlayerInCheck) {
+        if (isPlayerInCheck) {
             ArrayList<Piece> piecesArray = new ArrayList<>();
-            for (Map.Entry<Position, Piece> entry : board.pieces.entrySet()){
+            for (Map.Entry<Position, Piece> entry : board.pieces.entrySet()) {
                 Piece piece = entry.getValue();
-                if (piece.getColor() != turnColor){
+                if (piece.getColor() == turnColor) {
                     continue;
                 }
                 piecesArray.add(piece);
@@ -214,12 +214,16 @@ public class Movement {
 
         return false;
     }
-    public boolean isPlayerStalemated(Board board, Color turnColor, boolean isPlayerInCheck){
-        if (!isPlayerInCheck){
+
+    public boolean isPlayerStalemated(Board board, Color turnColor, boolean isPlayerInCheck) {
+        if (board.pieces.isEmpty()) {
+            return false;
+        }
+        if (!isPlayerInCheck) {
             ArrayList<Piece> piecesArray = new ArrayList<>();
-            for (Map.Entry<Position, Piece> entry : board.pieces.entrySet()){
+            for (Map.Entry<Position, Piece> entry : board.pieces.entrySet()) {
                 Piece piece = entry.getValue();
-                if (piece.getColor() != turnColor){
+                if (piece.getColor() != turnColor) {
                     continue;
                 }
                 piecesArray.add(piece);
@@ -238,8 +242,7 @@ public class Movement {
     }
 
 
-
-    public void endGame(){
+    public void endGame() {
         gameInProgress = false;
     }
 }
